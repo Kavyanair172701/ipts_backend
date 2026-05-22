@@ -3,6 +3,8 @@ from datetime import date
 from decimal import Decimal
 
 
+
+
 class IonCreate(BaseModel):
     ion_no: str
     ion_date: date
