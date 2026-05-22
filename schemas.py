@@ -3,8 +3,6 @@ from datetime import date
 from decimal import Decimal
 
 
-
-
 class IonCreate(BaseModel):
     ion_no: str
     ion_date: date
@@ -26,3 +24,19 @@ class IonResponse(IonCreate):
 
     class Config:
         from_attributes = True
+
+
+class UserCreate(BaseModel):
+    username: str
+    password: str
+    first_name: str | None = None
+    last_name: str | None = None
+    email: str | None = None
+    is_superuser: int = 0
+    is_staff: int = 0
+    is_active: int = 1
+
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
