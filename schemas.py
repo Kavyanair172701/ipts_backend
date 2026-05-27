@@ -31,6 +31,7 @@ class UserCreate(BaseModel):
     password: str
     first_name: str | None = None
     last_name: str | None = None
+    mobile_no: str | None = None
     email: str | None = None
     is_superuser: int = 0
     is_staff: int = 0

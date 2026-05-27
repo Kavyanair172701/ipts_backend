@@ -53,6 +53,7 @@ class UserMaster(Base):
     username = Column(String(150), unique=True, nullable=False)
     first_name = Column(String(150))
     last_name = Column(String(150))
+    mobile_no = Column(String(20))
     email = Column(String(200))
     is_staff = Column(Integer, default=0)
     is_active = Column(Integer, default=1)
