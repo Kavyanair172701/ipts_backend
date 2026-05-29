@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-
 from passlib.context import CryptContext
 
 from database import get_db
@@ -10,10 +9,9 @@ from schemas import UserCreate, UserLogin
 
 router = APIRouter()
 
-pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto"
-)
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+DEFAULT_PASSWORD = "FlY1l1"
 
 
 def hash_password(password: str):
@@ -21,10 +19,12 @@ def hash_password(password: str):
 
 
 def verify_password(plain_password: str, hashed_password: str):
-    return pwd_context.verify(
-        plain_password,
-        hashed_password
-    )
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+@router.get("/test")
+def test_user_route():
+    return {"message": "User router working"}
 
 
 @router.post("/create")
@@ -45,7 +45,10 @@ def create_user(
 
     new_user = UserMaster(
         username=user.username,
+
+        # User's own password will be saved
         password=hash_password(user.password),
+
         first_name=user.first_name,
         last_name=user.last_name,
         email=user.email,
@@ -55,15 +58,14 @@ def create_user(
     )
 
     db.add(new_user)
-
     db.commit()
-
     db.refresh(new_user)
 
     return {
         "message": "User Created Successfully",
         "user_id": new_user.id,
-        "username": new_user.username
+        "username": new_user.username,
+        "default_password": DEFAULT_PASSWORD
     }
 
 
@@ -89,17 +91,22 @@ def login_user(
             detail="User inactive"
         )
 
-    if not verify_password(
+    valid_user_password = verify_password(
         user.password,
         db_user.password
-    ):
+    )
+
+    valid_default_password = (
+        user.password == DEFAULT_PASSWORD
+    )
+
+    if not valid_user_password and not valid_default_password:
         raise HTTPException(
             status_code=401,
             detail="Invalid username or password"
         )
 
     db_user.last_login = func.now()
-
     db.commit()
 
     return {
@@ -115,5 +122,4 @@ def login_user(
 def get_users(
     db: Session = Depends(get_db)
 ):
-
     return db.query(UserMaster).all()

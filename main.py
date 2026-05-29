@@ -10,7 +10,11 @@ from routes.user import router as user_router
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(
+    title="IPTS Backend",
+    description="IPTS Backend API",
+    version="1.0.0"
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,4 +31,22 @@ app.include_router(user_router, prefix="/users", tags=["USERS"])
 
 @app.get("/")
 def home():
-    return {"message": "IPTS Backend Running Successfully"}
+    return {
+        "message": "IPTS Backend Running Successfully",
+        "available_routes": [
+            "/ions",
+            "/vendors",
+            "/users",
+            "/users/create",
+            "/users/login",
+            "/docs"
+        ]
+    }
+
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "OK",
+        "message": "Backend is running"
+    }
