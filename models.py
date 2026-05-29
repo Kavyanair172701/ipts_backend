@@ -3,7 +3,6 @@ from sqlalchemy.sql import func
 
 from database import Base
 
-
 class VendorMaster(Base):
     __tablename__ = "vendor_master"
 
@@ -17,6 +16,18 @@ class VendorMaster(Base):
     status = Column(String(20), default="ACTIVE")
     created_at = Column(TIMESTAMP, server_default=func.now())
 
+    vendor_code = Column(String(50))
+    vendor_type = Column(String(100))
+    alternate_no = Column(String(20))
+    city = Column(String(100))
+    state = Column(String(100))
+    pincode = Column(String(20))
+    pan_number = Column(String(50))
+    bank_name = Column(String(100))
+    account_number = Column(String(50))
+    ifsc_code = Column(String(50))
+    account_type = Column(String(50))
+    remarks = Column(Text)
 
 class IonMaster(Base):
     __tablename__ = "ion_master"

@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from datetime import date
 from decimal import Decimal
 
-
 class IonCreate(BaseModel):
     ion_no: str
     ion_date: date
@@ -41,3 +40,39 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     username: str
     password: str
+
+class VendorBase(BaseModel):
+    vendor_name: str
+    vendor_code: str | None = None
+    vendor_type: str | None = None
+    contact_person: str | None = None
+    mobile_no: str | None = None
+    alternate_no: str | None = None
+    email_id: str | None = None
+    address: str | None = None
+    city: str | None = None
+    state: str | None = None
+    pincode: str | None = None
+    pan_number: str | None = None
+    gst_no: str | None = None
+    bank_name: str |None = None
+    account_number: str | None = None
+    ifsc_code: str | None = None
+    account_type: str | None = None
+    status: str = "ACTIVE"
+    remarks: str | None = None
+
+
+class VendorCreate(VendorBase):
+    pass
+
+
+class VendorUpdate(VendorBase):
+    pass
+
+
+class VendorResponse(VendorBase):
+    vendor_id: int
+
+    class Config:
+        from_attributes = True
