@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, Date, DECIMAL, Text, TIMESTAMP
+from sqlalchemy import Column, Integer, String, Date,Float, DECIMAL, Text, TIMESTAMP
 from sqlalchemy.sql import func
-
 from database import Base
 
 class VendorMaster(Base):
@@ -69,3 +68,24 @@ class UserMaster(Base):
     is_staff = Column(Integer, default=0)
     is_active = Column(Integer, default=1)
     date_joined = Column(TIMESTAMP, server_default=func.now())
+
+class RSP(Base):
+    __tablename__ = "rsp"
+
+    rsp_id = Column(Integer, primary_key=True, index=True)
+
+    title_type = Column(String(100))
+    company_name = Column(String(255))
+    rsp_date = Column(String(50))
+
+    vendor_name = Column(String(255))
+    cheque_name = Column(String(255))
+    project_name = Column(String(255))
+    work_name = Column(String(255))
+
+    invoice_type = Column(String(100))
+    invoice_no = Column(String(100))
+    invoice_date = Column(String(50))
+
+    amount_payable = Column(Float)
+    amount_words = Column(String(500))
