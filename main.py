@@ -1,3 +1,5 @@
+
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,7 +11,7 @@ from routes.vendor import router as vendor_router
 from routes.user import router as user_router
 
 from rsp import router as rsp_router
-
+from ion_note import router as ion_note_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -18,7 +20,7 @@ app = FastAPI(
     description="IPTS Backend API",
     version="1.0.0"
 )
-
+app.include_router(ion_note_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -31,26 +33,12 @@ app.include_router(ion_router, prefix="/ions", tags=["IONS"])
 app.include_router(vendor_router, prefix="/vendors", tags=["VENDORS"])
 app.include_router(user_router, prefix="/users", tags=["USERS"])
 app.include_router(rsp_router)
-
+app.include_router(ion_note_router)
 
 @app.get("/")
 def home():
-    return {
-        "message": "IPTS Backend Running Successfully",
-        "available_routes": [
-            "/ions",
-            "/vendors",
-            "/users",
-            "/users/create",
-            "/users/login",
-            "/docs"
-        ]
-    }
-
+    return {"message": "IPTS Backend Running Successfully"}
 
 @app.get("/health")
 def health_check():
-    return {
-        "status": "OK",
-        "message": "Backend is running"
-    }
+    return {"status": "OK"}

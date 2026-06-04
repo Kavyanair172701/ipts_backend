@@ -89,3 +89,21 @@ class RSP(Base):
 
     amount_payable = Column(Float)
     amount_words = Column(String(500))
+
+class IonNote(Base):
+    __tablename__ = "ion_note"
+
+    ion_note_id = Column(Integer, primary_key=True, index=True)
+    company_name = Column(String(255))
+    ion_date = Column(String(50))
+    ion_ref_no = Column(String(100))
+    subject = Column(String(500))
+    vendor_name = Column(String(255))
+    work_name = Column(String(255))
+    project_name = Column(String(255))
+    duration_from = Column(String(50))
+    duration_to = Column(String(50))
+    base_amount = Column(Float)
+    gst_percent = Column(Float)
+    gst_amount = Column(Float)
+    grand_total = Column(Float)  
