@@ -76,3 +76,35 @@ class VendorResponse(VendorBase):
 
     class Config:
         from_attributes = True
+
+
+class PurchaseOrderCreate(BaseModel):
+    company_name: str = ""
+    po_date: str = ""
+    po_ref_no: str = ""
+
+    vendor_name: str = ""
+    vendor_address: str = ""
+
+    gstin: str = ""
+    kind_attention: str = ""
+
+    proforma_invoice_no: str = ""
+
+    project_name: str = ""
+
+    duration_from: str = ""
+    duration_to: str = ""
+
+    amount: float = 0
+
+    gst_percent: float = 18
+    gst_amount: float = 0
+
+    grand_total: float = 0
+
+    amount_words: str = ""
+
+    payment_terms: str = ""
+
+    cheque_favour: str = ""

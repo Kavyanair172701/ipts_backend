@@ -107,3 +107,39 @@ class IonNote(Base):
     gst_percent = Column(Float)
     gst_amount = Column(Float)
     grand_total = Column(Float)  
+
+class PurchaseOrder(Base):
+    __tablename__ = "purchase_order"
+
+    po_id = Column(Integer, primary_key=True, index=True)
+
+    company_name = Column(String(255))
+
+    po_date = Column(String(50))
+    po_ref_no = Column(String(100))
+
+    vendor_name = Column(String(255))
+    vendor_address = Column(Text)
+
+    gstin = Column(String(100))
+    kind_attention = Column(String(255))
+
+    proforma_invoice_no = Column(String(255))
+
+    project_name = Column(String(255))
+
+    duration_from = Column(String(50))
+    duration_to = Column(String(50))
+
+    amount = Column(Float)
+
+    gst_percent = Column(Float)
+    gst_amount = Column(Float)
+
+    grand_total = Column(Float)
+
+    amount_words = Column(String(500))
+
+    payment_terms = Column(String(500))
+
+    cheque_favour = Column(String(255))
