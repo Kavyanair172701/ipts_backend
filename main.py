@@ -12,6 +12,7 @@ from routes.user import router as user_router
 
 from rsp import router as rsp_router
 from ion_note import router as ion_note_router
+from routes.purchase_order import router as purchase_order_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -34,6 +35,8 @@ app.include_router(vendor_router, prefix="/vendors", tags=["VENDORS"])
 app.include_router(user_router, prefix="/users", tags=["USERS"])
 app.include_router(rsp_router)
 app.include_router(ion_note_router)
+app.include_router(purchase_order_router)
+
 
 @app.get("/")
 def home():
